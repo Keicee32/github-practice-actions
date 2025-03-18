@@ -1,0 +1,35 @@
+name: Practice exercise
+on:
+  push:
+
+jobs:
+  push-action-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code from Repo
+        uses: actions/checkout@v4
+      - name: Install Nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install dependencies
+        uses: jaid/action-npm-install@v1.2.1
+        with:
+          packageManager: auto
+      - name: Lint and Test code
+        run: npm run lint && npm test
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code from Repo
+        uses: actions/checkout@v4
+      - name: Install Nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install dependencies
+        uses: jaid/action-npm-install@v1.2.1
+        with:
+          packageManager: auto
+      - name: Deploy
+        run: echo "Deploying ${{ github.repositoryUrl }} by ${{ github.repository_owner }}"
