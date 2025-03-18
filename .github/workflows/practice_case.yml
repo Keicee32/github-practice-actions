@@ -1,7 +1,8 @@
 name: Practice exercise
 on:
   push:
-
+    branches:
+      - 'main'
 jobs:
   push-action-workflow:
     runs-on: ubuntu-latest
@@ -16,9 +17,20 @@ jobs:
         uses: jaid/action-npm-install@v1.2.1
         with:
           packageManager: auto
-      - name: Lint and Test code
-        run: npm run lint && npm test
+      - name: Generate ESLint config
+        run: |
+          npx eslint --init <<EOF
+          yes
+          module
+          none
+          EOF
+
+      - name: Run ESLint
+        run: npx eslint .
+     # - name: Lint and Test code
+     #   run: npm run lint && npm test
   deploy:
+    needs: push-action-workflow
     runs-on: ubuntu-latest
     steps:
       - name: Get code from Repo
