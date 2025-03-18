@@ -18,17 +18,9 @@ jobs:
         with:
           packageManager: auto
       - name: Generate ESLint config
-        run: |
-          npx eslint --init <<EOF
-          yes
-          module
-          none
-          EOF
-
-      - name: Run ESLint
-        run: npx eslint .
-     # - name: Lint and Test code
-     #   run: npm run lint && npm test
+        run: npm init @eslint/config
+      - name: Lint and Test code
+        run: npm run lint && npm test
   deploy:
     needs: push-action-workflow
     runs-on: ubuntu-latest
