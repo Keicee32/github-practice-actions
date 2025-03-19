@@ -22,7 +22,7 @@ jobs:
       - name: Lint and Test code
         run: npm run lint && npm test
   deploy:
-    needs: push-action-workflow
+    #needs: push-action-workflow
     runs-on: ubuntu-latest
     steps:
       - name: Get code from Repo
